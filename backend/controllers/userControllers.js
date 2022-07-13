@@ -5,7 +5,7 @@ const crypto = require("crypto");
 const asyncHandler = require("express-async-handler");
 const generateToken = require("../config/generateToken");
 // "https://scholar-chat-orcid.herokuapp.com/"
-const ENDPOINT = "http://localhost:5000/";
+const ENDPOINT = "https://scholar-chat-orcid.herokuapp.com/";
 // We need to handle the errors which come in our way, to do this we can use express-async-handler which does this work automatcally
 const registerUser = asyncHandler(async (req, res) => {
   const { name, email, password, pic } = req.body;
