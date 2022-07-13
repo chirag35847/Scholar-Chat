@@ -46,7 +46,8 @@ if (process.env.NODE_ENV === "production") {
 
 // ----------------------------------Deployment-------------------------------
 
-
+// https://scholar-chat-orcid.herokuapp.com/
+const ENDPOINT = "https://scholar-chat-orcid.herokuapp.com";
 // Error handling middlewares, if in case we tried to access any undefined route
 app.use(notFound);
 app.use(errorHandler);
@@ -59,7 +60,7 @@ const server = app.listen(PORT, console.log(`Server started on PORT ${PORT} : ht
 const io = require('socket.io')(server, {
     pingTimeout: 60000,
     cors: {
-        origin: "http://localhost:3000",
+        origin: {ENDPOINT},
     },
 });
 

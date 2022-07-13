@@ -133,7 +133,7 @@ const verifyUser = asyncHandler(async (req, res) => {
     await verifyToken.remove();
 
     // res.status(200).send({ message: "Email verified successfully" });
-    res.redirect("http://localhost:3000/verify");
+    res.redirect(`${ENDPOINT}verify`);
 
     // }
     // if(verifyToken.expiryDate<=Date.now()){
