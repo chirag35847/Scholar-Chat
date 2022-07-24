@@ -1,13 +1,31 @@
 const express = require("express");
+import User from "../models/userModel";
 
 const asyncHandler = require("express-async-handler");
 
 const oauth = asyncHandler(async (req, res) => {
     console.log(req.body)
     if(req.body!={}){
-        console.log('not empty')
-        res.status(200)
-        res.send('Go take a beer')
+        try{
+            console.log('not empty')
+            const { orcid, name, password } = req.body;
+            if (!name || !orcid || !password) {
+                res.status(400);
+                throw new Error("Please enter all the fields");
+            }
+    
+            const user = await User.create({
+                name,
+                orcid,
+                password,
+                pic,
+            });
+            res.status(201)
+            res.send('User Created Successfully');
+        }
+        catch(e){
+            res.status(400).send('Some Error Orrcured');
+        }
     }
     else{
         res.status(400)
