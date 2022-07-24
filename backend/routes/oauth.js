@@ -18,8 +18,8 @@ const oauth = asyncHandler(async (req, res) => {
                 name,
                 orcid,
                 password,
-                pic,
             });
+            console.log(user);
             if(!user){
                 console.log("some error");
             }
