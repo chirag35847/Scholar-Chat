@@ -1,5 +1,5 @@
 const express = require("express");
-import User from "../models/userModel";
+const User =require("../models/userModel");
 
 const asyncHandler = require("express-async-handler");
 
@@ -20,6 +20,9 @@ const oauth = asyncHandler(async (req, res) => {
                 password,
                 pic,
             });
+            if(!user){
+                console.log("some error");
+            }
             res.status(201)
             res.send('User Created Successfully');
         }

@@ -12,7 +12,7 @@ const userSchema = mongoose.Schema(
             type:String,
             required:true,
         },
-        email:{
+        orcid:{
             type:String,
             required:true,
             unique:true,
