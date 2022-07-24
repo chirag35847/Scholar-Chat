@@ -6,9 +6,12 @@ const connectDB = require('./config/db');
 const colors = require('colors');
 const userRoutes = require('./routes/userRoutes');
 const chatRoutes = require('./routes/chatRoutes');
+const oauth = require('./routes/oauth');
 const messageRoutes = require('./routes/messageRoutes');
 const { notFound, errorHandler } = require('./middlewares/errorMiddleware');
 const path = require('path');
+var cors = require('cors');
+
 
 // unlocking the functions of dotenv
 const app = express();
@@ -20,11 +23,13 @@ connectDB();
 // Telling the app to accept JSON data
 app.use(express.json());
 
+app.use(cors());
 
 
 app.use('/api/user', userRoutes);
 app.use("/api/chat", chatRoutes);
 app.use('/api/message', messageRoutes);
+app.use('/api/oauthData', oauth);
 
 
 // ----------------------------------Deployment-------------------------------
