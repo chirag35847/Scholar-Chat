@@ -50,16 +50,16 @@ const HomePage = () => {
         <Tabs variant="soft-rounded">
           <TabList mb={"1em"}>
             <Tab width={"50%"}>Login</Tab>
-            <Tab width={"50%"}>Register</Tab>
+            {/* <Tab width={"50%"}>Register</Tab> */}
           </TabList>
 
           <TabPanels>
             <TabPanel>
               <Login />
             </TabPanel>
-            <TabPanel>
+            {/* <TabPanel>
               <Signup />
-            </TabPanel>
+            </TabPanel> */}
           </TabPanels>
         </Tabs>
       </Box>

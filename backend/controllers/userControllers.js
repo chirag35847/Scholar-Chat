@@ -44,24 +44,18 @@ const registerUser = asyncHandler(async (req, res) => {
 });
 
 const authUser = asyncHandler(async (req, res) => {
-  const { email, password } = req.body;
+  const { orcid, password } = req.body;
 
-  const user = await User.findOne({ email });
+  const user = await User.findOne({ orcid });
   if (user && (await user.matchPassword(password))) {
-    if (!user.verified) {
-      await sendMail(email, undefined, false, user._id);
-      res.status(201).send({ message: "An email sent to your account" });
-    } else {
-      res.json({
-        _id: user._id,
-        name: user.name,
-        email: user.email,
-        pic: user.pic,
-        token: generateToken(user._id),
-      });
-      res.status(201).send({ message: "You have logged in successfully" });
-      // console.log("logged in successfully");
-    }
+    res.json({
+      _id: user._id,
+      name: user.name,
+      orcid: user.orcid,
+      pic: user.pic,
+      token: generateToken(user._id),
+    });
+    res.status(201).send({ message: "You have logged in successfully" });
   } else {
     res.status(401);
     throw new Error("Invalid Email or Password");
