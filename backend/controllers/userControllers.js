@@ -8,14 +8,14 @@ const generateToken = require("../config/generateToken");
 const ENDPOINT = "https://scholar-chat-orcid.herokuapp.com/";
 // We need to handle the errors which come in our way, to do this we can use express-async-handler which does this work automatcally
 const registerUser = asyncHandler(async (req, res) => {
-  const { name, email, password, pic } = req.body;
+  const { name, orcid, password, pic } = req.body;
 
-  if (!name || !email || !password) {
+  if (!name || !orcid || !password) {
     res.status(400);
     throw new Error("Please enter all the fields");
   }
 
-  const userExists = await User.findOne({ email });
+  const userExists = await User.findOne({ orcid });
 
   if (userExists) {
     res.status(400);
@@ -24,7 +24,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
   const user = await User.create({
     name,
-    email,
+    orcid,
     password,
     pic,
   });
@@ -145,7 +145,7 @@ const allUsers = asyncHandler(async (req, res) => {
     ? {
         $or: [
           { name: { $regex: req.query.search, $options: "i" } },
-          { email: { $regex: req.query.search, $options: "i" } },
+          { orcid: { $regex: req.query.search, $options: "i" } },
         ],
       }
     : {};

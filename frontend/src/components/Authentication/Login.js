@@ -104,7 +104,7 @@ const Login = () => {
   return (
     <VStack spacing="5px">
       <FormControl id="login-email" isRequired>
-        <FormLabel>Email</FormLabel>
+        <FormLabel>Orcid</FormLabel>
         <Input
           placeholder="Enter Your Email"
           value={orcid}

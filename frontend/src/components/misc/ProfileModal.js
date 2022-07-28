@@ -22,7 +22,7 @@ const ProfileModal = ({ user, children }) => {
 
                     <ModalBody d={'flex'} flexDir={'column'} alignItems={'center'} justifyContent={'space-between'}>
                         <Image borderRadius='full' boxSize='150px' src={user.pic} alt={user.name}></Image>
-                        <Text>Email : {user.email}</Text>
+                        <Text>Email : {user.orcid}</Text>
                     </ModalBody>
 
                     <ModalFooter>
