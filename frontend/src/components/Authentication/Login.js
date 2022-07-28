@@ -14,7 +14,7 @@ import { useHistory } from "react-router-dom";
 
 const Login = () => {
   const [show, setShow] = useState(false);
-  const [email, setmail] = useState();
+  const [orcid, setmail] = useState();
   const [password, setPassword] = useState();
   const [loading, setLoading] = useState(false);
   const toast = useToast();
@@ -24,7 +24,7 @@ const Login = () => {
 
   const submitHandler = async () => {
     setLoading(true);
-    if (!email || !password) {
+    if (!orcid || !password) {
       toast({
         title: "Please fill all the fields",
         status: "warning",
@@ -45,7 +45,7 @@ const Login = () => {
 
       const { data } = await axios.post(
         "/api/user/login",
-        { email, password },
+        { orcid, password },
         config
       );
 
@@ -107,7 +107,7 @@ const Login = () => {
         <FormLabel>Email</FormLabel>
         <Input
           placeholder="Enter Your Email"
-          value={email}
+          value={orcid}
           onChange={(event) => setmail(event.target.value)}
         ></Input>
       </FormControl>

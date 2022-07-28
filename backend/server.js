@@ -23,13 +23,25 @@ connectDB();
 // Telling the app to accept JSON data
 app.use(express.json());
 
-app.use(cors());
+// app.use(cors());
+
+var whitelist = ['http://127.0.0.1:5500/index.html', 'https://kuchipie.github.io/orcid-registration-frontend/']
+var corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  }
+}
+
 
 
 app.use('/api/user', userRoutes);
 app.use("/api/chat", chatRoutes);
 app.use('/api/message', messageRoutes);
-app.use('/api/oauthData', oauth);
+app.use('/api/oauthData',cors(), oauth);
 
 
 // ----------------------------------Deployment-------------------------------

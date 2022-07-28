@@ -58,7 +58,7 @@ const authUser = asyncHandler(async (req, res) => {
     res.status(201).send({ message: "You have logged in successfully" });
   } else {
     res.status(401);
-    throw new Error("Invalid Email or Password");
+    throw new Error("Invalid Orcid or Password");
   }
 });
 
