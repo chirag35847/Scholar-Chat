@@ -8,6 +8,7 @@ import {
   TabPanels,
   TabPanel,
   Tabs,
+  Button,
 } from "@chakra-ui/react";
 import Login from "../components/Authentication/Login";
 import Signup from "../components/Authentication/Signup";
@@ -21,6 +22,11 @@ const HomePage = () => {
       history.push("/chats");
     }
   }, [history]);
+
+  const ClickHandler=()=>{
+    const url = 'https://kuchipie.github.io/orcid-registration-frontend/';
+    window.open(url, '_blank');
+  }
 
   return (
     <Container maxW="xl" centerContent>
@@ -50,16 +56,18 @@ const HomePage = () => {
         <Tabs variant="soft-rounded">
           <TabList mb={"1em"}>
             <Tab width={"50%"}>Login</Tab>
-            {/* <Tab width={"50%"}>Register</Tab> */}
+            <Tab width={"50%"}>Register</Tab>
           </TabList>
 
           <TabPanels>
             <TabPanel>
               <Login />
             </TabPanel>
-            {/* <TabPanel>
-              <Signup />
-            </TabPanel> */}
+            <TabPanel>
+              <div style={{display:"flex",justifyContent:'center',alignItems:'center'}}>
+                <Button onClick={ClickHandler}>Register With Orcid</Button>
+              </div>
+            </TabPanel>
           </TabPanels>
         </Tabs>
       </Box>
