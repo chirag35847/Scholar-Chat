@@ -51,7 +51,7 @@ const Login = () => {
 
       if(data.message){
         toast({
-          title: "Please Verify Your Email",
+          title: "Please Verify Your Orcid",
           description: data.message,
           status: "info",
           duration: 5000,
@@ -103,10 +103,10 @@ const Login = () => {
 
   return (
     <VStack spacing="5px">
-      <FormControl id="login-email" isRequired>
+      <FormControl id="login-orcid" isRequired>
         <FormLabel>Orcid</FormLabel>
         <Input
-          placeholder="Enter Your Email"
+          placeholder="Enter Your Orcid 0000-0000-0000-0000"
           value={orcid}
           onChange={(event) => setmail(event.target.value)}
         ></Input>
