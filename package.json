@@ -22,6 +22,12 @@
     "mongoose": "^6.2.5",
     "nodejs-nodemailer-outlook": "^1.2.4",
     "nodemon": "^2.0.20",
-    "socket.io": "^4.4.1"
+    "socket.io": "^4.4.1",
+      "axios": "^0.27.2",
+    "ejs": "^3.1.8",
+    "express-session": "^1.17.3",
+    "passport": "^0.6.0",
+    "passport-orcid": "^0.0.4",
+    "path": "^0.12.7"
   }
 }
