@@ -173,6 +173,7 @@ passport.serializeUser(function (user, done) {
     console.log('data',data);
     // console.log("user create karnewali api", req);
     data["password"] = req.body["password"];
+    console.log('data',data);
     if (data != {}) {
       console.log(1, 'inside if')
         try {
@@ -203,6 +204,7 @@ passport.serializeUser(function (user, done) {
           res.send("User Created Successfully");
         } catch (e) {
           console.log('catch')
+          console.log(e.message);
           res.status(402).send("Internal Server Error");
         }
       } else {
