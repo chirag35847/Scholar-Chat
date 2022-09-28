@@ -161,7 +161,7 @@ passport.serializeUser(function (user, done) {
   
   app.get("/done", function (req, res) {
     console.log('statusCode =', statusCode)
-    if (statusCode != '404' & statusCode != -1) {
+    if (statusCode != '404' && statusCode != -1) {
       res.render('success')
     }
     else {
