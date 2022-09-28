@@ -85,33 +85,25 @@ passport.serializeUser(function (user, done) {
       }
     )
   );
-  
-//   const app = express();
+
   app.use(express.static(path.join(__dirname, 'public')))
 
   app.set('views', path.join(__dirname, 'views'));
 
   app.set("view engine", "ejs");
   app.use(bodyParser.json());
-  // app.use(bodyParser.urlencoded());
-  // in latest body-parser use like below.
   app.use(bodyParser.urlencoded({ extended: true }));
-//   app.use(express.static('public'))
   
   
   
   app.use(session({ secret: "foo", resave: false, saveUninitialized: false }));
-  // app.use('/files', express.static('files'))
-  
   app.use(passport.initialize());
   app.use(passport.session());
   
-  // show sign in or sign out link
   app.get("/hello", function (req, res) {
     if (req.isAuthenticated()) {
       res.render('index');
     } else {
-      // res.send('<a href="/auth/orcid/login">Sign in with ORCID</a>')
       res.render("index");
     }
   });
@@ -121,7 +113,6 @@ passport.serializeUser(function (user, done) {
     if (req.isAuthenticated()) {
       res.render('teams_page');
     } else {
-      // res.send('<a href="/auth/orcid/login">Sign in with ORCID</a>')
       res.render("teams_page");
     }
   });
@@ -179,12 +170,13 @@ passport.serializeUser(function (user, done) {
   })
   
   const createUser = async (req, res) => {
-    // console.log("hit createUser");
+    console.log('data',data);
     // console.log("user create karnewali api", req);
     data["password"] = req.body["password"];
     if (data != {}) {
+      console.log(1, 'inside if')
         try {
-          console.log("not empty");
+          console.log("not empty", 'inside try');
           const { orcid, name, password } = data;
           if (!name || !orcid || !password) {
             res.status(401);
@@ -210,9 +202,11 @@ passport.serializeUser(function (user, done) {
           res.status(201);
           res.send("User Created Successfully");
         } catch (e) {
+          console.log('catch')
           res.status(402).send("Internal Server Error");
         }
       } else {
+        console.log('else')
         res.status(402);
         res.send("Internal Server Error");
       }
