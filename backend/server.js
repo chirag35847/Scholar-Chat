@@ -8,14 +8,9 @@ const messageRoutes = require('./routes/messageRoutes');
 const { notFound, errorHandler } = require('./middlewares/errorMiddleware');
 const path = require('path');
 var cors = require('cors');
-<<<<<<< HEAD
-=======
+
 const User = require("./models/userModel");
 
-
-
-
->>>>>>> 039e46aab43bd3e4fbe85bfc76f97b320a9964c2
 const passport = require("passport");
 const session = require("express-session");
 const OrcidStrategy = require("passport-orcid").Strategy;
