@@ -1,9 +1,6 @@
-// importing the installed packages
 const express = require('express');
 const dotenv = require('dotenv');
-// const { chats } = require('./data/data');
 const connectDB = require('./config/db');
-// const colors = require('colors');
 const userRoutes = require('./routes/userRoutes');
 const chatRoutes = require('./routes/chatRoutes');
 const oauth = require('./routes/oauth');
@@ -11,10 +8,6 @@ const messageRoutes = require('./routes/messageRoutes');
 const { notFound, errorHandler } = require('./middlewares/errorMiddleware');
 const path = require('path');
 var cors = require('cors');
-
-
-
-
 const passport = require("passport");
 const session = require("express-session");
 const OrcidStrategy = require("passport-orcid").Strategy;
@@ -77,7 +70,7 @@ passport.serializeUser(function (user, done) {
         state: true, // remove this if not using sessions
         clientID: "APP-RIU99EAXIMJAA7TX",
         clientSecret: "ff079043-138a-467f-9491-63899cab2ece",
-        callbackURL: "https://scholar-chat-home.herokuapp.com/auth/orcid/callback",
+        callbackURL: "https://scholar-chat-orcid.herokuapp.com/auth/orcid/callback",
       },
       function (accessToken, refreshToken, params, profile, done) {
         // `profile` is empty as ORCID has no generic profile URL,
