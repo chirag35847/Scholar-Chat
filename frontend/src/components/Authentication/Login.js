@@ -76,11 +76,6 @@ const Login = () => {
           return new Promise((resolve) => setTimeout(resolve, ms));
         }
         async function demo() {
-          // for (let i = 0; i < 5; i++) {
-          //   console.log(`Waiting ${i} seconds...`);
-          //   await sleep(i * 1000);
-          // }
-          // history.push("/chats");
           await sleep(2 * 1000);
           console.log("done");
           window.location.reload();

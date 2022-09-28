@@ -12,7 +12,8 @@ import {
 } from "@chakra-ui/react";
 import Login from "../components/Authentication/Login";
 import Signup from "../components/Authentication/Signup";
-import { useHistory } from "react-router-dom";
+import { Link, Redirect, useHistory } from "react-router-dom";
+
 
 const HomePage = () => {
   const history = useHistory();
@@ -24,8 +25,22 @@ const HomePage = () => {
   }, [history]);
 
   const ClickHandler=()=>{
-    const url = 'https://kuchipie.github.io/orcid-registration-frontend/';
-    window.open(url, '_blank');
+    // const url = 'https://kuchipie.github.io/orcid-registration-frontend/';
+    // window.open(url, '_blank');
+    // return <Redirect to='/hello'/>
+    const history = useHistory()
+    function sleep(ms) {
+      return new Promise((resolve) => setTimeout(resolve, ms));
+    }
+    async function demo() {
+      await sleep(2 * 1000);
+      console.log("done");
+      window.location.reload();
+    }
+    demo();
+    history.go(0)
+
+    window.location.reload()
   }
 
   return (
@@ -65,7 +80,8 @@ const HomePage = () => {
             </TabPanel>
             <TabPanel>
               <div style={{display:"flex",justifyContent:'center',alignItems:'center'}}>
-                <Button onClick={ClickHandler}>Register With Orcid</Button>
+                <Link to='/hello'><Button >Register With Orcid</Button></Link>
+                
               </div>
             </TabPanel>
           </TabPanels>

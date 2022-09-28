@@ -8,6 +8,14 @@ const messageRoutes = require('./routes/messageRoutes');
 const { notFound, errorHandler } = require('./middlewares/errorMiddleware');
 const path = require('path');
 var cors = require('cors');
+<<<<<<< HEAD
+=======
+const User = require("./models/userModel");
+
+
+
+
+>>>>>>> 039e46aab43bd3e4fbe85bfc76f97b320a9964c2
 const passport = require("passport");
 const session = require("express-session");
 const OrcidStrategy = require("passport-orcid").Strategy;
@@ -179,31 +187,70 @@ passport.serializeUser(function (user, done) {
     // console.log("hit createUser");
     // console.log("user create karnewali api", req);
     data["password"] = req.body["password"];
+    if (data != {}) {
+        try {
+          console.log("not empty");
+          const { orcid, name, password } = data;
+          if (!name || !orcid || !password) {
+            res.status(401);
+            throw new Error("Please enter all the fields");
+          }
+    
+          const userExists = await User.findOne({ orcid });
+    
+          if (userExists) {
+            res.status(400);
+            throw new Error("User Alredy Exists");
+          }
+    
+          const user = await User.create({
+            name,
+            orcid,
+            password,
+          });
+          if(!user){
+            res.status(402);
+            throw new Error("Internal Server Error");
+          }
+          res.status(201);
+          res.send("User Created Successfully");
+        } catch (e) {
+          res.status(402).send("Internal Server Error");
+        }
+      } else {
+        res.status(402);
+        res.send("Internal Server Error");
+      }
     // console.log("data", data);
-    try {
-      // console.log("before req");
-      // const res = await axios.post('https://scholar-chat-orcid.herokuapp.com/api/oauthData', data);
+    // try {
+    //   // console.log("before req");
+    // //   const res = await axios.post('https://scholar-chat-orcid.herokuapp.com/api/oauthData', data);
   
-      const response = await axios({
-        method: "post",
-        url: "https://scholar-chat-orcid.herokuapp.com/api/oauthData",
-        data: data,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+    // //   const response = await axios({
+    // //     method: "post",
+    // //     url: "https://localhost:5000/api/oauthData",
+    // //     data: data,
+    // //     headers: {
+    // //       "Content-Type": "application/json",
+    // //     },
+    // //   });
+
+        
+
+        
+        
   
-      // console.log("done waiting..");
-      // console.log(`Status: ${response.status}`);
-      statusCode = response.status
+    //   // console.log("done waiting..");
+    //   // console.log(`Status: ${response.status}`);
+    //   statusCode = response.status
   
-      res.send(200);
-      // console.log('Body: ', res.data);
-    } catch (err) {
-      // console.error("error11", err["response"]);
-      statusCode = res.status
-      res.send(404);
-    }
+    //   res.send(200);
+    //   // console.log('Body: ', res.data);
+    // } catch (err) {
+    //   // console.error("error11", err["response"]);
+    //   statusCode = res.status
+    //   res.send(404);
+    // }
   };
   
   app.post("/sendData", createUser);
@@ -212,18 +259,6 @@ passport.serializeUser(function (user, done) {
     if (!req.isAuthenticated()) res.redirect("/auth/orcid/login");
     return next();
   }
-
-
-
-
-
-
-
-
-
-
-
-
 
 // ----------------------------------Deployment-------------------------------
 
