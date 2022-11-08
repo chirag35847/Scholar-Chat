@@ -1,10 +1,16 @@
+// This widget comes on the screen when the user want to create a group chat
+
 import { Box, FormControl, Input, useDisclosure, useToast } from '@chakra-ui/react'
 import { Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter } from '@chakra-ui/react';
 import React, { useState } from 'react'
+
+// Context API ChatState
 import { ChatState } from '../../Context/ChatProvider';
+
 import axios from 'axios';
 import UserListItem from '../UserAvatar/UserListItem';
 import UserBadgeItem from '../UserAvatar/UserBadgeItem';
+
 
 const GroupChatModal = ({ children }) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -16,6 +22,7 @@ const GroupChatModal = ({ children }) => {
     const toast = useToast();
     const { user, chats, setChats } = ChatState();
 
+    // This function os responsible to search the users with the given query parameters, we want some/all of these users to add into the group
     const handleSearch = async (query) => {
         setSearch(query);
 
@@ -48,6 +55,7 @@ const GroupChatModal = ({ children }) => {
         }
     }
 
+    // creating the group chat
     const handleSubmit = async () => {
         if (!groupChatName || !selectedUsers) {
             toast({
@@ -95,6 +103,7 @@ const GroupChatModal = ({ children }) => {
         }
     };
 
+    // check if one user which is already selected to add in the group is being tapped upon to add again and again
     const handleGroup = (userToAdd) => {
         if (selectedUsers.includes(userToAdd)) {
             toast({
@@ -152,7 +161,6 @@ const GroupChatModal = ({ children }) => {
                         </Box>
 
                         {loading ? (
-                            // <ChatLoading />
                             <div>Loading...</div>
                         ) : (
                             searchResults
