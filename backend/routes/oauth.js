@@ -1,6 +1,5 @@
 const express = require("express");
 const User = require("../models/userModel");
-
 const asyncHandler = require("express-async-handler");
 
 const oauth = asyncHandler(async (req, res) => {

@@ -1,9 +1,4 @@
 const mongoose = require('mongoose');
-
-// Id of the sender
-// Content of the message
-// The Chat which it belong to
-
 const messageModel = mongoose.Schema(
     {
         sender:{

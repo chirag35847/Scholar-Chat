@@ -1,14 +1,5 @@
-// chatName
-// isGroupChat
-// users
-// latestMessage
-// groupAdmin
-
 const mongoose = require('mongoose');
-
-const chatModel = mongoose.Schema(
-    {
-        // Trim : true --> No trailing spaces in the name
+const chatModel = mongoose.Schema({
         chatName:{type:String,trin:true},
         isGroupChat:{type:Boolean,default:false},
         users:[
@@ -37,5 +28,4 @@ const chatModel = mongoose.Schema(
 );
 
 const Chat = mongoose.model('Chat',chatModel);
-
 module.exports = Chat;
