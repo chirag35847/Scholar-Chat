@@ -1,3 +1,4 @@
+// Imports start
 const express = require('express');
 const dotenv = require('dotenv');
 const connectDB = require('./config/db');
@@ -14,27 +15,42 @@ const session = require("express-session");
 const OrcidStrategy = require("passport-orcid").Strategy;
 const bodyParser = require("body-parser");
 const app = express();
-dotenv.config();
-connectDB();
-app.use(express.json());
-app.use(cors());
-app.use('/api/user', userRoutes);
-app.use("/api/chat", chatRoutes);
-app.use('/api/message', messageRoutes);
-app.use('/api/oauthData', oauth);
+// Imports end
 
-// ----------------------------------Deployment-------------------------------
+dotenv.config(); // Extracting environment variables from env file
+connectDB(); // Connecting to MongoDb Database
+
+app.use(express.json()); // Defining the json as a format to exchange data in APIs
+
+app.use(cors()); // Cors is a package used to restrict api requests from only a specific domain.
+// We added this function since we experienced some cors policy error once.
+
+app.use('/api/user', userRoutes); // Routes related to user related to Auth and Searching users.
+app.use("/api/chat", chatRoutes); // Routes handling all chat features. 
+app.use('/api/message', messageRoutes); // Routes for sending messages and reading messages
+app.use('/api/oauthData', oauth); // Route for handling data received from oauth
+
+// ----------------------------------Deployment Code Starts-------------------------------
 
 const __dirname1 = path.resolve();
-if (process.env.NODE_ENV === "production") {
-    app.use(express.static(path.join(__dirname1, "/frontend/build")));
+if (process.env.NODE_ENV === "production") { // This code runs only if environment is set to production
+    app.use(express.static(path.join(__dirname1, "/frontend/build"))); // This runs frontend and backend on the same port. 
 } else {
     app.get("/", (req, res) => {
-        res.send("API is running..");
+        res.send("API is running.."); // Test message from endpoint blank endpoint (www.scholarchat.org/)
     });
 }
 
-passport.serializeUser(function (user, done) {
+// ----------------------------------Deployment Code Ends-------------------------------
+
+// ----------------------------------EJS and express App code starts -------------------------------
+
+// Code below is used for authenticating with Oauth of orcid.
+// This is done with a package called passport.js
+// This is the documentation for that package https://www.passportjs.org/packages/passport-orcid/
+
+// these lines are needed for storing the user in the session
+passport.serializeUser(function (user, done) { 
     done(null, user);
 });
 
@@ -57,14 +73,14 @@ passport.use(
     )
 );
 
-app.use(express.static(path.join(__dirname, 'public')))
-app.set('views', path.join(__dirname, 'views'));
-app.set("view engine", "ejs");
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(session({ secret: "foo", resave: false, saveUninitialized: false }));
-app.use(passport.initialize());
-app.use(passport.session());
+app.use(express.static(path.join(__dirname, 'public'))) // setting public folder for using all assets (images, css, etc)
+app.set('views', path.join(__dirname, 'views')); // setting views folder for express
+app.set("view engine", "ejs"); // setting rendering engine as ejs
+app.use(bodyParser.json()); // data from req.body should be converted to json when we receive data from requests
+app.use(bodyParser.urlencoded({ extended: true })); // only that data will be parsed which parses urlencoded bodies and only looks at requests where the Content-Type header matches the type option 
+app.use(session({ secret: "foo", resave: false, saveUninitialized: false })); // used to save data temporatily using express sessions
+app.use(passport.initialize()); // passport initialization code
+app.use(passport.session()); // saving data
 
 app.get("/hello", function (req, res) {
     if (req.isAuthenticated()) {
@@ -181,6 +197,9 @@ function checkAuth(req, res, next) {
     if (!req.isAuthenticated()) res.redirect("/auth/orcid/login");
     return next();
 }
+
+// ----------------------------------EJS and express App code ends -------------------------------
+
 
 // ----------------------------------Deployment-------------------------------
 
