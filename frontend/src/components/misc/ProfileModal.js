@@ -1,3 +1,5 @@
+// Widget used to see user profile
+
 import { ViewIcon } from '@chakra-ui/icons'
 import { IconButton, useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, Button ,Image,Text} from '@chakra-ui/react'
 import React from 'react'

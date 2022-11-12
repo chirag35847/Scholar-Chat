@@ -8,7 +8,7 @@ const Chat = require("../models/chatModel");
 //@access          Protected
 const allMessages = asyncHandler(async (req, res) => {
   try {
-    const messages = await Message.find({ chat: req.params.chatId })
+    const messages = await Message.find({ chat: req.params.chatId }) // https://www.geeksforgeeks.org/mongoose-populate-method/
       .populate("sender", "name pic orcid")
       .populate("chat");
     res.json(messages);
@@ -38,9 +38,9 @@ const sendMessage = asyncHandler(async (req, res) => {
   try {
     var message = await Message.create(newMessage);
 
-    message = await message.populate("sender", "name pic");
-    message = await message.populate("chat");
-    message = await User.populate(message, {
+    message = await message.populate("sender", "name pic"); // using populate method to get reference of sender's user model
+    message = await message.populate("chat"); // using populate method to get reference of chat id
+    message = await User.populate(message, {  // using populate method to get reference of all users' name pic orcid who are invloved in the message
       path: "chat.users",
       select: "name pic orcid",
     });

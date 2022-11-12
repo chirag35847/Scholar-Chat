@@ -1,3 +1,6 @@
+// One file defining all routes required for sending and receiving messages
+
+
 const express = require("express");
 const {
   allMessages,
