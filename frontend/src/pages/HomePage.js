@@ -11,7 +11,7 @@ import {
   Button,
 } from "@chakra-ui/react";
 import Login from "../components/Authentication/Login";
-import Signup from "../components/Authentication/Signup";
+import Signup from "../components/Authentication/Signup"; // Unused
 import { Link, Redirect, useHistory } from "react-router-dom";
 
 
