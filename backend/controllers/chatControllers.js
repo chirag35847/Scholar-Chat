@@ -9,11 +9,11 @@ const accessChat = asyncHandler(async (req, res) => {
     const { userId } = req.body;
 
     if (!userId) {
-        console.log("UserId param not sent with request");
+        console.log("UserId param not sent with request"); // checking if user id is sent
         return res.sendStatus(400);
     }
 
-    var isChat = await Chat.find({
+    var isChat = await Chat.find({ // finding chats with id 
         isGroupChat: false,
         $and: [
             { users: { $elemMatch: { $eq: req.user._id } } },

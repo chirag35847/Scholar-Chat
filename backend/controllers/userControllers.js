@@ -3,41 +3,6 @@ const asyncHandler = require("express-async-handler");
 const generateToken = require("../config/generateToken");
 
 const ENDPOINT = "https://scholar-chat-orcid.herokuapp.com/";
-// const registerUser = asyncHandler(async (req, res) => {
-//   const { name, orcid, password, pic } = req.body;
-
-//   if (!name || !orcid || !password) {
-//     res.status(400);
-//     throw new Error("Please enter all the fields");
-//   }
-
-//   const userExists = await User.findOne({ orcid });
-
-//   if (userExists) {
-//     res.status(400);
-//     throw new Error("User Alredy Exists");
-//   }
-
-//   const user = await User.create({
-//     name,
-//     orcid,
-//     password,
-//     pic,
-//   });
-
-//   if (user) {
-//     const verifyTokenResult = await VerifyToken.create({
-//       userId: user._id,
-//       token: crypto.randomBytes(32).toString("hex"),
-//     });
-//     const url = `${ENDPOINT}api/user/${verifyTokenResult.userId}/verify/${verifyTokenResult.token}`;
-//     sendMail(user.email, url);
-//     res.status(201).send({ message: "An email sent to your account" });
-//   } else {
-//     res.status(400);
-//     throw new Error("Failed to create a new User");
-//   }
-// });
 
 const authUser = asyncHandler(async (req, res) => {
   const { orcid, password } = req.body;
@@ -57,84 +22,6 @@ const authUser = asyncHandler(async (req, res) => {
     throw new Error("Invalid Orcid or Password");
   }
 });
-
-// const sendMail = asyncHandler(async (recieverMail, url, isRegister, userId) => {
-//   // console.log("exe");
-//   try {
-//     if (isRegister === false) {
-//       const previousToken = await VerifyToken.findOne({
-//         userId: userId,
-//       });
-
-//       if (previousToken) {
-//         await previousToken.remove();
-//       }
-
-//       const verifyTokenResult = await VerifyToken.create({
-//         userId: userId,
-//         token: crypto.randomBytes(32).toString("hex"),
-//       });
-
-//       url = `${ENDPOINT}api/user/${verifyTokenResult.userId}/verify/${verifyTokenResult.token}`;
-//     }
-
-//     // console.log("weexe");
-//     await nodeoutlook.sendEmail({
-//       auth: {
-//         user: process.env.EMAIL,
-//         pass: process.env.PASS,
-//       },
-//       from: process.env.EMAIL,
-//       to: recieverMail,
-//       subject: `Please Verify Your Account At ScholarChat`,
-//       text: `Click this link.\nThis link is only available for 1 hour.\n${url}`,
-//     });
-//     // console.log('email sent successfully');
-//   } catch (error) {
-//     // console.log('error while sending email');
-//     console.log(error.message);
-//     res.status(401).send({ message: "Some error occured" });
-//   }
-// });
-
-// const verifyUser = asyncHandler(async (req, res) => {
-//   try {
-//     console.log("hitting");
-//     const user = await User.findOne({ _id: req.params.id });
-//     // console.log(user);
-//     if (!user) {
-//       //   res.redirect("http://localhost:3000/");
-//       return res.status(400).send({ message: "Invalid Link" });
-//     }
-
-//     const verifyToken = await VerifyToken.findOne({
-//       userId: user._id,
-//       token: req.params.token,
-//     });
-
-//     if (!verifyToken) {
-//       //   res.redirect("http://localhost:3000/");
-//       return res.status(400).send({ message: "Invalid Link" });
-//     }
-//     // console.log(ISODate(verifyToken.expiryDate));
-
-//     // if(verifyToken.expiryDate>Date.now()){
-//     await User.updateOne({ _id: user._id }, { verified: true });
-//     await verifyToken.remove();
-
-//     // res.status(200).send({ message: "Email verified successfully" });
-//     res.redirect(`${ENDPOINT}verify`);
-
-//     // }
-//     // if(verifyToken.expiryDate<=Date.now()){
-//     //     await verifyToken.remove();
-//     //     sendMail(user.email,undefined,false,user._id);
-//     //     res.status(201).send({message:"The Previous mail was expired, we have sent you another mail"});
-//     // }
-//   } catch (error) {
-//     res.status(500).send({ message: "Internal server error" });
-//   }
-// });
 
 const allUsers = asyncHandler(async (req, res) => {
   const keyword = req.query.search

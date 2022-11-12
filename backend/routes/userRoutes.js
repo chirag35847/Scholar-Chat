@@ -1,3 +1,5 @@
+// One file defining all routes required for getting all users and authentication
+
 const express = require("express");
 
 const {

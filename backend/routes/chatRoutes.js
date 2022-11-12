@@ -1,3 +1,5 @@
+// One file defining all routes required for chat
+
 const express = require("express");
 const {
     accessChat,
