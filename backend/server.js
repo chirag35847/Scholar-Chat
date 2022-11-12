@@ -121,22 +121,22 @@ app.get("/auth/logout", function (req, res) {
 
 let data = {};
 
-app.get("/profile", checkAuth, function (req, res) {
+app.get("/profile", checkAuth, function (req, res) { // The profile page
     res.render("setPassword");
     data = req.user;
 });
 
-app.get("/error", function (req, res) {
+app.get("/error", function (req, res) { // The error page
     res.render("error");
 });
 
-app.get("/success", function (req, res) {
+app.get("/success", function (req, res) { // The successful registration page
     res.render("success");
 });
 
-let statusCode = -1;
+let statusCode = -1; // Global variable. (Bad habit)
 
-app.get("/done", function (req, res) {
+app.get("/done", function (req, res) { // Final Api hit after completing registration
     console.log('statusCode =', statusCode)
     if (statusCode != '404' && statusCode != -1) {
         res.render('success')
@@ -146,29 +146,26 @@ app.get("/done", function (req, res) {
     }
 })
 
-const createUser = async (req, res) => {
-    console.log('data', data);
-    // console.log("user create karnewali api", req);
+const createUser = async (req, res) => { // User creating API
+    // console.log('data', data);
     data["password"] = req.body["password"];
-    console.log('data', data);
+    // console.log('data', data);
     if (data != {}) {
-        console.log(1, 'inside if')
         try {
-            console.log("not empty", 'inside try');
             const { orcid, name, password } = data;
-            if (!name || !orcid || !password) {
+            if (!name || !orcid || !password) { // check if all fields are present
                 res.status(401);
                 throw new Error("Please enter all the fields");
             }
 
-            const userExists = await User.findOne({ orcid });
+            const userExists = await User.findOne({ orcid }); // Find if user already exists with same orcid
 
             if (userExists) {
                 res.status(400);
-                throw new Error("User Alredy Exists");
+                throw new Error("User Alredy Exists"); // Throw error if user already exists
             }
 
-            const user = await User.create({
+            const user = await User.create({ // Create user with the details if user doesnot exist
                 name,
                 orcid,
                 password,
@@ -179,7 +176,7 @@ const createUser = async (req, res) => {
             }
             res.status(201);
             res.send("User Created Successfully");
-        } catch (e) {
+        } catch (e) { // Throw error
             console.log('catch')
             console.log(e.message);
             res.status(402).send("Internal Server Error");
@@ -191,9 +188,9 @@ const createUser = async (req, res) => {
     }
 };
 
-app.post("/sendData", createUser);
+app.post("/sendData", createUser); // Create user on sendData api endpoint
 
-function checkAuth(req, res, next) {
+function checkAuth(req, res, next) { // Function to check if user is authenticated
     if (!req.isAuthenticated()) res.redirect("/auth/orcid/login");
     return next();
 }
@@ -208,6 +205,12 @@ app.use(notFound);
 app.use(errorHandler);
 const PORT = process.env.PORT || 5000
 const server = app.listen(PORT, console.log(`Server started on PORT ${PORT} : http://localhost:${PORT}/`.blue.bold));
+
+
+
+// ----------------------------------Socket IO code starrts -------------------------------
+// socket io docs https://socket.io/docs/v4/
+
 const io = require('socket.io')(server, {
     pingTimeout: 60000,
     cors: {
@@ -244,7 +247,9 @@ io.on('connection', (socket) => {
         })
     })
 
-    socket.on('typing', (room) => socket.in(room).emit('typing'));
+
+    // code for typing indicator
+    socket.on('typing', (room) => socket.in(room).emit('typing')); 
     socket.on('stop typing', (room) => socket.in(room).emit('stop typing'));
 
     socket.off("setup", () => {
@@ -252,3 +257,5 @@ io.on('connection', (socket) => {
         socket.leave(userData._id);
     })
 })
+
+// ----------------------------------Socket IO code ends -------------------------------
