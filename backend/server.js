@@ -62,8 +62,8 @@ passport.use(
     new OrcidStrategy(
         {
             state: true,
-            clientID: "APP-RIU99EAXIMJAA7TX",
-            clientSecret: "ff079043-138a-467f-9491-63899cab2ece",
+            clientID: PROCESS.ENV.CLIENT_ID,
+            clientSecret: PROCESS.ENV.CLIENT_SECRET,
             callbackURL: "https://scholar-chat-orcid.herokuapp.com/auth/orcid/callback",
         },
         function (accessToken, refreshToken, params, profile, done) {
