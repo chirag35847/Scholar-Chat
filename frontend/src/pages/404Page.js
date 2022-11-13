@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useParams } from "react-router-dom";
 import { Text, Container, Box } from "@chakra-ui/react";
-
+const ENDPOINT = process.env.NODE_ENV==="production"?process.env.ENDPOINT:process.env.DEV_ENV;
 const PageNotFound = () => {
   return (
     <Container maxW="xl" centerContent>
@@ -23,24 +23,11 @@ const PageNotFound = () => {
       <h1>
 		  Page Not Found 
         </h1>
-        <a class="login-button" href="https://scholar-chat-orcid.herokuapp.com/">
+        <a class="login-button" href="ENDPOINT">
           <button
           style={{fontSize:"20px", border:"2px solid green", borderRadius:"5px", padding:"5px 10px", borderColor:"#0C0A3E" ,backgroundColor:"#0C0A3E", color:"white"}}
           >Back to Home</button></a>
       </Box>
-
-      {/* <Box
-      alignItems="center"
-      justifyContent={"center"}
-      display="flex"
-      >
-      <a class="login-button" href="https://scholar-chat-orcid.herokuapp.com/"><button type="button "
-            class="">Log in to Scholar Chat</button></a>
-      </Box> */}
-      
-      
-      
-     
       
     </Container>
   );
