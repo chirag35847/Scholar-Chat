@@ -25,7 +25,7 @@ const PageNotFound = () => {
       <h1>
 		  Page Not Found 
         </h1>
-        <a class="login-button" href="ENDPOINT">
+        <a class="login-button" href="#ENDPOINT">
           <button
           style={{fontSize:"20px", border:"2px solid green", borderRadius:"5px", padding:"5px 10px", borderColor:"#0C0A3E" ,backgroundColor:"#0C0A3E", color:"white"}}
           >Back to Home</button></a>
