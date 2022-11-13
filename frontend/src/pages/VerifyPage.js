@@ -18,7 +18,7 @@ const VerifyPage = () => {
             {" "}
             here{" "}
           </Link>{" "} */}
-          {console.log("Ha bhai mai aya fir mujhe nikal diya gaya")}
+          {console.log("Ha bhai mai aya fir mujhe nikal diya gaya")} {/* WOW */}
           and login again to use the application.
         </Text>
       </Box>
