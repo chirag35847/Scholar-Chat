@@ -62,8 +62,8 @@ passport.use(
     new OrcidStrategy(
         {
             state: true,
-            clientID: PROCESS.ENV.CLIENT_ID,
-            clientSecret: PROCESS.ENV.CLIENT_SECRET,
+            clientID: process.env.CLIENT_ID,
+            clientSecret: process.env.CLIENT_SECRET,
             callbackURL: "https://scholar-chat-orcid.herokuapp.com/auth/orcid/callback",
         },
         function (accessToken, refreshToken, params, profile, done) {
@@ -200,7 +200,7 @@ function checkAuth(req, res, next) { // Function to check if user is authenticat
 
 // ----------------------------------Deployment-------------------------------
 
-const ENDPOINT = "https://scholar-chat-orcid.herokuapp.com";
+const ENDPOINT = process.env.NODE_ENV==="production"?process.env.ENDPOINT:process.env.DEV_ENV;
 app.use(notFound);
 app.use(errorHandler);
 const PORT = process.env.PORT || 5000
