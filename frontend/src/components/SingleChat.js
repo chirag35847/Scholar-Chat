@@ -11,7 +11,8 @@ import ScrollableChat from './ScrollableChat'
 import io from 'socket.io-client'
 import BeatLoader from "react-spinners/BeatLoader";
 
-const ENDPOINT = "https://scholar-chat-orcid.herokuapp.com/";
+
+const ENDPOINT =  process.env.NODE_ENV==='production'?process.env.ENDPOINT:process.env.DEV_ENV;
 var socket,selectedChatCompare;
 
 const SingleChat = ({ fetchAgain, setFetchAgain }) => {

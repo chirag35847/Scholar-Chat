@@ -2,7 +2,7 @@ const User = require("../models/userModel");
 const asyncHandler = require("express-async-handler");
 const generateToken = require("../config/generateToken");
 
-const ENDPOINT = "https://scholar-chat-orcid.herokuapp.com/";
+const ENDPOINT = process.env.ENDPOINT;
 
 const authUser = asyncHandler(async (req, res) => {
   const { orcid, password } = req.body;
