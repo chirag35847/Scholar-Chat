@@ -1,6 +1,8 @@
 import React from "react";
 import { Link, useParams } from "react-router-dom";
 import { Text, Container, Box } from "@chakra-ui/react";
+
+
 const ENDPOINT = process.env.NODE_ENV==="production"?process.env.ENDPOINT:process.env.DEV_ENV;
 const PageNotFound = () => {
   return (
