@@ -48,10 +48,6 @@ p{
     padding: 0 18px;
 }
 
-.nav-link{
-    font-size: 1.2rem;
-    font-family: "Ubuntu";
-}
 
 /* Dowload Buttons */
 .Download-button{
@@ -144,14 +140,16 @@ p{
 
 /* footer section  */
 #footer{
-    background-color: white;
-    padding: 1% 15%;
+    background-color: #1572A1;
+    padding: 1.5rem;
     text-align: center;
 }
 
 #footer p{
-    color: black;
+    color: white;
     font-weight: 700;
+    padding:0;
+    margin:0;
 }
 
 .social-icon {
@@ -172,6 +170,7 @@ p{
 /* Institute */
 #institute{
     background-color: #1572A1;
+    border-bottom:1px solid #fefefe;
     padding: 5% 15%;
 }
 
