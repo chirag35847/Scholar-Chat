@@ -10,6 +10,7 @@ const Login = () => {
     const [password, setPassword] = useState();
     const [loading, setLoading] = useState(false);
     const toast = useToast();
+
     const handleClick = () => setShow(!show);
 
     // submitHandler called when the user clickes Login on the Login widget in the frontend
@@ -88,14 +89,29 @@ const Login = () => {
     };
 
     // The Login Widget
+    const [ocrid, setOcrid] = useState("");
     return (
         <VStack spacing="5px">
             <FormControl id="login-orcid" isRequired>
                 <FormLabel>Orcid</FormLabel>
                 <Input
                     placeholder="Enter Your Orcid 0000-0000-0000-0000"
-                    value={orcid}
-                    onChange={(event) => setmail(event.target.value)}
+                    value={ocrid}
+                    onChange={(event) => {
+                        setOcrid(event.target.value);
+                        if (!isNaN(event.target.value.slice(-1))) {
+                            if (event.target.value.length === 4) {
+                                setOcrid(event.target.value + "-");
+                            }
+                            if (event.target.value.includes("-") 
+                                && event.target.value.length - event.target.value.split("-").length +1 !== 16
+                                && (event.target.value.length - event.target.value.split("-").length +1 ) % 4 === 0) {
+                                setOcrid(event.target.value+'-')
+                            }
+                        }
+                        setmail(event.target.value);
+                      }
+                    }
                 ></Input>
             </FormControl>
 
