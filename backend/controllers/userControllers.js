@@ -1,13 +1,13 @@
-const User = require("../models/userModel");
-const asyncHandler = require("express-async-handler");
-const generateToken = require("../config/generateToken");
+const User = require('../models/userModel')
+const asyncHandler = require('express-async-handler')
+const generateToken = require('../config/generateToken')
 
-const ENDPOINT = process.env.ENDPOINT;
+const ENDPOINT = process.env.ENDPOINT
 
 const authUser = asyncHandler(async (req, res) => {
-  const { orcid, password } = req.body;
+  const { orcid, password } = req.body
 
-  const user = await User.findOne({ orcid });
+  const user = await User.findOne({ orcid })
   if (user && (await user.matchPassword(password))) {
     res.json({
       _id: user._id,
@@ -15,26 +15,26 @@ const authUser = asyncHandler(async (req, res) => {
       orcid: user.orcid,
       pic: user.pic,
       token: generateToken(user._id),
-    });
-    res.status(201).send({ message: "You have logged in successfully" });
+    })
+    res.status(201).send({ message: 'You have logged in successfully' })
   } else {
-    res.status(401);
-    throw new Error("Invalid Orcid or Password");
+    res.status(401)
+    throw new Error('Invalid Orcid or Password')
   }
-});
+})
 
 const allUsers = asyncHandler(async (req, res) => {
   const keyword = req.query.search
     ? {
         $or: [
-          { name: { $regex: req.query.search, $options: "i" } },
-          { orcid: { $regex: req.query.search, $options: "i" } },
+          { name: { $regex: req.query.search, $options: 'i' } },
+          { orcid: { $regex: req.query.search, $options: 'i' } },
         ],
       }
-    : {};
+    : {}
 
-  const users = await User.find(keyword).find({ _id: { $ne: req.user._id } });
-  res.send(users);
-});
+  const users = await User.find(keyword).find({ _id: { $ne: req.user._id } })
+  res.send(users)
+})
 
-module.exports = { authUser, allUsers};
+module.exports = { authUser, allUsers }
