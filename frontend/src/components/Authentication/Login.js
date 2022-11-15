@@ -1,6 +1,6 @@
 // This file contains the component that is responsible for Logging in the user to the app
 
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { FormControl, FormLabel, VStack, Input, InputGroup, InputRightElement, Button, useToast, } from "@chakra-ui/react";
 import axios from "axios";
 
@@ -12,6 +12,7 @@ const Login = () => {
     const [orcid, setmail] = useState('');
     const [password, setPassword] = useState();
     const [loading, setLoading] = useState(false);
+    const [raj,setRaj]= useState(false);
     const toast = useToast();
     const handleClick = () => setShow(!show);
     const reg=/^([0-9-]*)$/;
@@ -43,6 +44,14 @@ function addHyphen (orcid) {
 }
 
 
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setRaj(false);
+        }, 60*1000);
+      
+        return () => clearInterval(interval);
+      }, []);
+
     // submitHandler called when the user clickes Login on the Login widget in the frontend
     // first this function checks if the user input is valid or not
     // if the inputs are valid it sends the data to Db and checks response
@@ -72,7 +81,7 @@ function addHyphen (orcid) {
                 { orcid, password },
                 config
             );
-
+            console.log(data)
             if (data.message) {
                 toast({
                     title: "Please Verify Your Orcid",
@@ -106,6 +115,8 @@ function addHyphen (orcid) {
             }
             //   window.localStorage.reload();
         } catch (error) {
+            console.log(error.message)
+            error.message==="Request failed with status code 429"?setRaj(true):setRaj(false);
             toast({
                 title: "Error Occured!",
                 description: error.response.data.message,
@@ -117,6 +128,15 @@ function addHyphen (orcid) {
             setLoading(false);
         }
     };
+
+
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+          setRaj(false)
+        }, 1000);
+        return () => clearTimeout(timer);
+      }, []);
 
     // The Login Widget
     return (
@@ -156,6 +176,7 @@ function addHyphen (orcid) {
                 style={{ marginTop: 15 }}
                 onClick={submitHandler}
                 isLoading={loading}
+                isDisabled={raj}
             >
                 LogIn
             </Button>
