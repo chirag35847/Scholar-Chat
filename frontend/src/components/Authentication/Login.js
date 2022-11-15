@@ -1,6 +1,6 @@
 // This file contains the component that is responsible for Logging in the user to the app
 
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { FormControl, FormLabel, VStack, Input, InputGroup, InputRightElement, Button, useToast, } from "@chakra-ui/react";
 import axios from "axios";
 
@@ -9,8 +9,17 @@ const Login = () => {
     const [orcid, setmail] = useState();
     const [password, setPassword] = useState();
     const [loading, setLoading] = useState(false);
+    const [raj,setRaj]= useState(false);
     const toast = useToast();
     const handleClick = () => setShow(!show);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setRaj(false);
+        }, 60*1000);
+      
+        return () => clearInterval(interval);
+      }, []);
 
     // submitHandler called when the user clickes Login on the Login widget in the frontend
     // first this function checks if the user input is valid or not
@@ -41,7 +50,7 @@ const Login = () => {
                 { orcid, password },
                 config
             );
-
+            console.log(data)
             if (data.message) {
                 toast({
                     title: "Please Verify Your Orcid",
@@ -75,6 +84,8 @@ const Login = () => {
             }
             //   window.localStorage.reload();
         } catch (error) {
+            console.log(error.message)
+            error.message==="Request failed with status code 429"?setRaj(true):setRaj(false);
             toast({
                 title: "Error Occured!",
                 description: error.response.data.message,
@@ -86,6 +97,15 @@ const Login = () => {
             setLoading(false);
         }
     };
+
+
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+          setRaj(false)
+        }, 1000);
+        return () => clearTimeout(timer);
+      }, []);
 
     // The Login Widget
     return (
@@ -122,6 +142,7 @@ const Login = () => {
                 style={{ marginTop: 15 }}
                 onClick={submitHandler}
                 isLoading={loading}
+                isDisabled={raj}
             >
                 LogIn
             </Button>
