@@ -62,6 +62,7 @@ passport.use(
     new OrcidStrategy(
         {
             state: true,
+            sandbox:process.env.NODE_ENV !== 'production',
             clientID: process.env.NODE_ENV === "production"? process.env.CLIENT_ID : process.env.SANDBOX_CLIENT_ID,
             clientSecret: process.env.NODE_ENV === "production"? process.env.CLIENT_SECRET : process.env.SANDBOX_CLIENT_SECRET,
             callbackURL: process.env.ENDPOINT+"/auth/orcid/callback",
