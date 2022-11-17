@@ -137,8 +137,9 @@ app.get("/profile", checkAuth, function (req, res) { // The profile page
     data = req.user;
 });
 
+let statusCode = -1; // Global variable. (Bad habit)
 app.get("/error", function (req, res) { // The error page
-    res.render("error");
+    res.render("error",{statusCode:statusCode});
 });
 
 app.get("/success", function (req, res) { // The successful registration page
@@ -147,7 +148,6 @@ app.get("/success", function (req, res) { // The successful registration page
     });
 });
 
-let statusCode = -1; // Global variable. (Bad habit)
 
 app.get("/done", function (req, res) { // Final Api hit after completing registration
     console.log('statusCode =', statusCode)
