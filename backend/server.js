@@ -62,9 +62,10 @@ passport.use(
     new OrcidStrategy(
         {
             state: true,
-            clientID: process.env.CLIENT_ID,
-            clientSecret: process.env.CLIENT_SECRET,
-            callbackURL: "https://scholar-chat-orcid.herokuapp.com/auth/orcid/callback",
+            sandbox:process.env.NODE_ENV !== 'production',
+            clientID: process.env.NODE_ENV === "production"? process.env.CLIENT_ID : process.env.SANDBOX_CLIENT_ID,
+            clientSecret: process.env.NODE_ENV === "production"? process.env.CLIENT_SECRET : process.env.SANDBOX_CLIENT_SECRET,
+            callbackURL: process.env.ENDPOINT+"/auth/orcid/callback",
         },
         function (accessToken, refreshToken, params, profile, done) {
             profile = { orcid: params.orcid, name: params.name };
@@ -84,17 +85,25 @@ app.use(passport.session()); // saving data
 
 app.get("/hello", function (req, res) {
     if (req.isAuthenticated()) {
-        res.render('index');
+        res.render('index', {
+            endpoint: process.env.ENDPOINT
+        });
     } else {
-        res.render("index");
+        res.render("index", {
+            endpoint: process.env.ENDPOINT
+        });
     }
 });
 
 app.get("/team", function (req, res) {
     if (req.isAuthenticated()) {
-        res.render('teams_page');
+        res.render('teams_page', {
+            endpoint: process.env.ENDPOINT
+        });
     } else {
-        res.render("teams_page");
+        res.render("teams_page", {
+            endpoint: process.env.ENDPOINT
+        });
     }
 });
 
@@ -122,7 +131,9 @@ app.get("/auth/logout", function (req, res) {
 let data = {};
 
 app.get("/profile", checkAuth, function (req, res) { // The profile page
-    res.render("setPassword");
+    res.render("setPassword", {
+        endpoint: ENDPOINT
+    });
     data = req.user;
 });
 
@@ -131,7 +142,9 @@ app.get("/error", function (req, res) { // The error page
 });
 
 app.get("/success", function (req, res) { // The successful registration page
-    res.render("success");
+    res.render("success", {
+        endpoint: ENDPOINT
+    });
 });
 
 let statusCode = -1; // Global variable. (Bad habit)
@@ -139,10 +152,14 @@ let statusCode = -1; // Global variable. (Bad habit)
 app.get("/done", function (req, res) { // Final Api hit after completing registration
     console.log('statusCode =', statusCode)
     if (statusCode != '404' && statusCode != -1) {
-        res.render('success')
+        res.render('success', {
+            endpoint: process.env.ENDPOINT
+        })
     }
     else {
-        res.render('error')
+        res.render('error', {
+            endpoint: process.env.ENDPOINT
+        })
     }
 })
 
