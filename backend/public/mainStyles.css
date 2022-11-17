@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+
 body {
     margin: 0;
     padding: 0;
@@ -7,16 +9,43 @@ body {
 /* navbar */
 
 .navbar-brand {
-    margin-left: 5rem;
+    font-family:"Ubuntu";
+    /* margin-left: 5rem; */
+    font-size: 40px;
+    font-weight: bold;
 }
 
-.nav-link {
-    color: #fff !important;
+.nav-link{
+    font-size: 1.2rem;
+    color:#ffffff80;
+    transition:color 0.3s ease-in-out;
+    font-family: "Ubuntu";
+}
+
+.nav-item:hover{
+    color: #ffffff !important;
+    transition:color 0.3s ease-in-out;
 }
 
 .navbar {
     background-color: #1572A1;
     margin: 0 0 0 0;
+    padding:1.5rem 0;
+}
+
+.container-fluid {
+    background-color: #1572A1;
+    padding:0% 15% 0%;
+}
+
+.nav-item{
+    display: flex;
+    align-items: center;
+}
+
+.navbar-container {
+    padding:3% 15%;
+    background-color: #1572A1;
 }
 
 .login {
@@ -107,12 +136,17 @@ body {
     list-style: none;
 }
 
+
 .contact_us,
 .address {
     display: flex;
     align-items: flex-start;
     justify-content: center;
+}
 
+.contact_us{
+    margin:0rem 1.5rem;
+    border-bottom:1px solid #fefefe;
 }
 
 .footer-container__header {
@@ -124,14 +158,35 @@ body {
 }
 
 .copyright {
-    padding: 1rem;
+    padding: 1.5rem;
     margin: 0;
     text-align: center;
+    color:white;
 }
 
+.contents-container{
+    width:100%;
+    height: 25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  .contents {
+    width: 25rem;
+    height: 15rem;
+    border: 1px solid black;
+    border-radius:1.5rem;
+    box-shadow: 4px 5px 3px rgba(0,0,0,0.29);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
 
-
-
+  h3 {
+    padding-bottom: 2rem;
+  }
 
 /* responsiveness */
 @media screen and (max-width:720px) {
