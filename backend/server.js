@@ -15,6 +15,7 @@ const passport = require('passport')
 const session = require('express-session')
 const OrcidStrategy = require('passport-orcid').Strategy
 const bodyParser = require('body-parser')
+var cors = require('cors')
 const app = express()
 // Imports end
 
@@ -23,8 +24,23 @@ connectDB() // Connecting to MongoDb Database
 
 app.use(express.json()) // Defining the json as a format to exchange data in APIs
 
-app.use(cors()) // Cors is a package used to restrict api requests from only a specific domain.
-// We added this function since we experienced some cors policy error once.
+const corsOptions = {
+  origin: function (origin, callback) {
+    const whitelist = [process.env.ENDPOINT + '/']
+    if (process.env.NODE_ENV !== 'production')
+      whitelist.push('http://127.0.0.1:5000/', 'http://localhost:5000/')
+    // console.log(whitelist)
+    // console.log('origin: ', origin)
+    if (whitelist.indexOf(origin) !== -1 || !origin) {
+      // !origin is for the same domain. however this could also result in a security issue
+      // we could add !origin only for dev env but we will also need to check the working of the website in production if we do so
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  },
+}
+app.use(cors(corsOptions)) // Cors is a package used to restrict api requests from only a specific domain. This is used to prevent cross site scripting attacks
 
 app.use('/api/user', userRoutes) // Routes related to user related to Auth and Searching users.
 app.use('/api/chat', chatRoutes) // Routes handling all chat features.
