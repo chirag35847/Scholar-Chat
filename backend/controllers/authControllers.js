@@ -33,7 +33,5 @@ exports.verifyEmail = asyncHandler(async (req, res) => {
 
   await user.save()
 
-  res.status(200).json({
-    message: 'Email verified successfully',
-  })
+  res.status(200).send('Email verified successfully. Please login to continue.')
 })

@@ -77,7 +77,10 @@ passport.use(
         process.env.NODE_ENV === 'production'
           ? process.env.CLIENT_SECRET
           : process.env.SANDBOX_CLIENT_SECRET,
-      callbackURL: process.env.ENDPOINT + '/auth/orcid/callback',
+      callbackURL:
+        process.env.NODE_ENV === 'production'
+          ? process.env.ENDPOINT
+          : process.env.DEV_ENV + '/auth/orcid/callback',
     },
     function (accessToken, refreshToken, params, profile, done) {
       profile = { orcid: params.orcid, name: params.name }
@@ -145,7 +148,9 @@ let data = {}
 
 app.get('/profile', checkAuth, function (req, res) {
   // The profile page
-  res.render('setPassword')
+  res.render('setPassword', {
+    endpoint: ENDPOINT,
+  })
   data = req.user
 })
 
@@ -155,11 +160,6 @@ app.get('/profile', checkAuth, function (req, res) {
     endpoint: ENDPOINT,
   })
   data = req.user
-})
-
-app.get('/success', function (req, res) {
-  // The successful registration page
-  res.render('success')
 })
 
 app.get('/success', function (req, res) {
@@ -224,7 +224,7 @@ const createUser = async (req, res) => {
 
       await EmailToken.create({
         token,
-        user: user._id,
+        userId: user._id,
       })
 
       sendMail(
@@ -233,7 +233,11 @@ const createUser = async (req, res) => {
         `
       <h1>Verify Your Account</h1>
       <p>Click on the link below to verify your account</p>
-      <a href="${process.env.ENDPOINT}/email/verify/${token}">Verify</a>
+      <a href="${
+        process.env.NODE_ENV === 'production'
+          ? process.env.ENDPOINT
+          : process.env.DEV_ENV
+      }/api/auth/email/verify/${token}">Verify</a>
       `
       ) // Send mail to the user with the details
 

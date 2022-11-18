@@ -31,7 +31,7 @@ const sendMail = async (receipient, subject, text) => {
     from: user,
     to: receipient,
     subject: subject,
-    text: text,
+    html: text,
   }
 
   transport.sendMail(mail_options, (err, data) => {
