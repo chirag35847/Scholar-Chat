@@ -236,8 +236,8 @@ const createUser = async (req, res) => {
       <a href="${
         process.env.NODE_ENV === 'production'
           ? process.env.ENDPOINT
-          : process.env.DEV_ENV
-      }/api/auth/email/verify/${token}">Verify</a>
+          : process.env.DEV_CLIENT
+      }/email/verify/${token}">Verify</a>
       `
       ) // Send mail to the user with the details
 

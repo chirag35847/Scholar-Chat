@@ -25,13 +25,16 @@ exports.verifyEmail = asyncHandler(async (req, res) => {
   }
 
   if (user.emailVerified) {
-    res.status(204)
-    throw new Error('Email already verified')
+    res.status(202).json({
+      message: 'Email verified already.',
+    })
   }
 
   user.emailVerified = true
 
   await user.save()
 
-  res.status(200).send('Email verified successfully. Please login to continue.')
+  res.status(200).json({
+    message: 'Email verified successfully. Please login to continue.',
+  })
 })

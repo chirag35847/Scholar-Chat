@@ -21,7 +21,7 @@ function EmailVerify() {
   const verify = async () => {
     try {
       const { data } = await axios.get('/api/auth/email/verify/' + params.token)
-
+      console.log(data)
       if (data.message) {
         toast({
           title: 'Email Verification',
