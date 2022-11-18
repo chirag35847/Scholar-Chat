@@ -1,6 +1,6 @@
 // This file contains the component that is responsible for Logging in the user to the app
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   FormControl,
   FormLabel,
@@ -10,18 +10,52 @@ import {
   InputRightElement,
   Button,
   useToast,
-  Text,
 } from '@chakra-ui/react'
-import { Link } from 'react-router-dom'
 import axios from 'axios'
 
 const Login = () => {
   const [show, setShow] = useState(false)
-  const [orcid, setmail] = useState()
+  const [orcid, setmail] = useState('')
   const [password, setPassword] = useState()
   const [loading, setLoading] = useState(false)
+  const [raj, setRaj] = useState(false)
   const toast = useToast()
   const handleClick = () => setShow(!show)
+  const reg = /^([0-9-]*)$/
+
+  function addHyphen(orcid) {
+    if (reg.test(orcid)) {
+      if (orcid.includes('-')) orcid = orcid.split('-').join('')
+      let temp = ''
+
+      //hyphens
+      //In this for loop I'm adding hyphens at the necessary position
+      //By using a simple for loop
+      //Initiating i to figure out indexing
+      for (let i = 0; i < orcid.length; i++) {
+        if (i === 3 || i === 7 || i === 11) {
+          //positions are at 4,8,12
+          if (i + 1 !== orcid.length) {
+            temp += orcid[i] + '-' //adding hyphen at i+1th position
+          } else {
+            temp += orcid[i]
+          }
+        } else {
+          temp += orcid[i]
+        }
+      }
+      setmail(temp)
+    } else {
+    }
+  }
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setRaj(false)
+    }, 60 * 1000)
+
+    return () => clearInterval(interval)
+  }, [])
 
   // submitHandler called when the user clickes Login on the Login widget in the frontend
   // first this function checks if the user input is valid or not
@@ -52,7 +86,7 @@ const Login = () => {
         { orcid, password },
         config
       )
-
+      console.log(data)
       if (data.message) {
         toast({
           title: 'Please Verify Your Orcid',
@@ -85,6 +119,10 @@ const Login = () => {
       }
       //   window.localStorage.reload();
     } catch (error) {
+      console.log(error.message)
+      error.message === 'Request failed with status code 429'
+        ? setRaj(true)
+        : setRaj(false)
       toast({
         title: 'Error Occured!',
         description: error.response.data.message,
@@ -97,6 +135,13 @@ const Login = () => {
     }
   }
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setRaj(false)
+    }, 1000)
+    return () => clearTimeout(timer)
+  }, [])
+
   // The Login Widget
   return (
     <VStack spacing='5px'>
@@ -105,7 +150,11 @@ const Login = () => {
         <Input
           placeholder='Enter Your Orcid 0000-0000-0000-0000'
           value={orcid}
-          onChange={event => setmail(event.target.value)}
+          type='text'
+          pattern=''
+          id='mobile_number'
+          onChange={e => addHyphen(e.target.value.trim())}
+          maxLength='19'
         ></Input>
       </FormControl>
 
@@ -132,14 +181,10 @@ const Login = () => {
         style={{ marginTop: 15 }}
         onClick={submitHandler}
         isLoading={loading}
+        isDisabled={raj}
       >
         LogIn
       </Button>
-      <Link to={'/forgotpassword'}>
-        <Text color='blue' as={'ins'}>
-          Forgot Password?
-        </Text>
-      </Link>
     </VStack>
   )
 }

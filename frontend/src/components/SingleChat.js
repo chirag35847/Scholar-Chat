@@ -95,7 +95,10 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
         socket = io(ENDPOINT);
         socket.emit('setup',user);
         socket.on('connected',()=>setSocketConnected(true));
-        socket.on('typing',()=>setIsTyping(true));
+        socket.on('typing',(id)=>{
+            console.log(id, selectedChat)
+            setIsTyping(true)
+        });
         socket.on('stop typing',()=>setIsTyping(false));
     }, [])
     
