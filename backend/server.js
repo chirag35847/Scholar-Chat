@@ -153,7 +153,9 @@ app.get('/profile', checkAuth, function (req, res) {
 
 app.get('/error', function (req, res) {
   // The error page
-  res.render('error')
+  res.render('error', {
+    endpoint: ENDPOINT,
+  })
 })
 
 app.get('/success', function (req, res) {
