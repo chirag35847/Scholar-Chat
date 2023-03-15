@@ -1,4 +1,4 @@
-#title{
+#title,.title-nav{
     background-color: #1572A1;
     color: #FDF6F0;
 }
@@ -36,6 +36,8 @@ p{
 
 .navbar{
     padding: 0 0 4.5rem;
+    background-color: #1572A1;
+    color: #FDF6F0;
 }
 
 .navbar-brand{
@@ -58,14 +60,23 @@ p{
     margin: 5% 3% 5% 0;
 }
 
+.title-nav .navbar{
+    padding: 0;
+}
+.title-nav, .container-fluid{
+    padding:3% 15% 2%;
+}
+
 /* Title Image */
 .title-image{
-    width: 60%;
+    width: 50%;
     transform: rotate(25deg);
     position: absolute;
     right: 30%;
     border-radius: 5%;
 }
+
+
 
 /* Features */
 #features{
@@ -180,4 +191,119 @@ p{
     margin-left: auto;
     margin-right: auto;
     width: 20%;
+}
+
+/* Teams page styling */
+.container {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 7rem;
+  }
+  .container .card {
+    width: 300px;
+    height: 400px;
+    padding: 60px 30px;
+    margin: 20px;
+    background: #f2f3f7;
+    box-shadow: 0.6em 0.6em 1.2em rgb(175, 187, 202),
+      -0.5em -0.5em 1em #aeb0b1;
+    border-radius: 20px;
+  }
+  .container .card .content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  .container .card .content .imgBx {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    position: relative;
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+  .container .card .content .imgBx img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .container .card .content .contentBx h4 {
+    color: #36187d;
+    font-size: 1.7rem;
+    font-weight: bold;
+    text-align: center;
+    letter-spacing: 1px;
+  }
+  
+  .container .card .content .contentBx h5 {
+    color: #6c758f;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-align: center;
+  }
+  
+  .container .card .content .sci {
+    margin-top: 20px;
+  }
+.container .card .content .sci {
+  margin-top: 20px;
+}
+
+.container .card .content .sci a {
+  text-decoration: none;
+  color: #6c758f;
+  font-size: 30px;
+  margin: 10px;
+  transition: color 0.4s;
+}
+
+.container .card .content .sci a:hover {
+  color: #0196e3;
+}
+
+
+/* Footer page styling */
+#about {
+    padding: 2rem;
+    margin-top: 5rem;
+    background-color: #1572A1;
+    color: #fff;
+}
+
+#about h2 {
+    text-align: center;
+    padding: 2rem 0;
+
+}
+
+#about li {
+    list-style: none;
+}
+
+.contact_us,
+.address {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+
+}
+
+.footer-container__header {
+    margin-left: 2.5rem;
+}
+
+.footer-container {
+    padding: 0 5rem;
+}
+
+.copyright {
+    padding: 1rem;
+    margin: 0;
+    text-align: center;
 }

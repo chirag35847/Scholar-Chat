@@ -95,7 +95,7 @@ const ENDPOINT =
     ? process.env.ENDPOINT
     : process.env.DEV_ENV
 
-app.get('/hello', function (req, res) {
+app.get('/app', function (req, res) {
   if (req.isAuthenticated()) {
     res.render('index', {
       endpoint: process.env.ENDPOINT,
@@ -234,6 +234,10 @@ function checkAuth(req, res, next) {
   if (!req.isAuthenticated()) res.redirect('/auth/orcid/login')
   return next()
 }
+
+app.use('*', (req, res, next) => {
+  res.sendFile(path.join(__dirname, '../frontend/build/index.html'))
+})
 
 // ----------------------------------EJS and express App code ends -------------------------------
 

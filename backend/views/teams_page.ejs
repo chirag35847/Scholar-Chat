@@ -18,9 +18,18 @@
         crossorigin="anonymous"></script>
 
 
+
+    <!-- Google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Open+Sans:wght@300&family=Ubuntu&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
-    <link rel="stylesheet" href="team_styles.css">
-    <link rel="stylesheet" href="/mainStyles.css">
+    <!-- <link rel="stylesheet" href="team_styles.css"> -->
+    <link rel="stylesheet" href="styles.css">
 
     <title>Team Page</title>
 
@@ -31,12 +40,11 @@
 <body>
 
     <!--Navbar Section-->
-
-    <!-- <div class="container-fluid"> -->
-    <div>
+    <div class="title-nav container-fluid">
         <%- include('partials/navbar') %>
-
-
+    </div>
+    <section id="teams">
+        <div class="container-fluid">
             <div class="container">
                 <div class="card">
                     <div class="content">
@@ -48,7 +56,8 @@
                             <h5>3rd Year Student @IIITDWD</h5>
                         </div>
                         <div class="sci">
-                            <a href="https://www.linkedin.com/in/chirag35847/"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                            <a href="https://www.linkedin.com/in/chirag35847/"><i class="fa fa-linkedin"
+                                    aria-hidden="true"></i></a>
                             <a href="https://github.com/chirag35847"><i class="fa fa-github" aria-hidden="true"></i></a>
                         </div>
                     </div>
@@ -63,86 +72,25 @@
                             <h5>3rd Year Student @IIITDWD</h5>
                         </div>
                         <div class="sci">
-                            <a href="https://www.linkedin.com/in/shreyas-bulbule-3912301b3/"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                            <a href="https://www.linkedin.com/in/shreyas-bulbule-3912301b3/"><i class="fa fa-linkedin"
+                                    aria-hidden="true"></i></a>
                             <a href="https://github.com/kuchiPie"><i class="fa fa-github" aria-hidden="true"></i></a>
                         </div>
                     </div>
                 </div>
-                <!--  <div class="card">
-                    <div class="content">
-                        <div class="imgBx">
-                            <img src="img/team3.jpg" alt="">
-                        </div>
-                        <div class="contentBx">
-                            <h4>Ben Jason</h4>
-                            <h5>Developer</h5>
-                        </div>
-                        <div class="sci">
-                            <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
-                            <a href="#"><i class="fa fa-github" aria-hidden="true"></i></a>
-                            <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                            <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="content">
-                        <div class="imgBx">
-                            <img src="img/team4.jpg" alt="">
-                        </div>
-                        <div class="contentBx">
-                            <h4>Ann Brown</h4>
-                            <h5>Mannager</h5>
-                        </div>
-                        <div class="sci">
-                            <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
-                            <a href="#"><i class="fa fa-github" aria-hidden="true"></i></a>
-                            <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                            <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="content">
-                        <div class="imgBx">
-                            <img src="img/team5.jpg" alt="">
-                        </div>
-                        <div class="contentBx">
-                            <h4>Ann Brown</h4>
-                            <h5>Mannager</h5>
-                        </div>
-                        <div class="sci">
-                            <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
-                            <a href=""><i class="fa fa-github" aria-hidden="true"></i></a>
-                            <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                            <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="content">
-                        <div class="imgBx">
-                            <img src="img/team6.jpg" alt="">
-                        </div>
-                        <div class="contentBx">
-                            <h4>Ann Brown</h4>
-                            <h5>Mannager</h5>
-                        </div>
-                        <div class="sci">
-                            <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
-                            <a href="#"><i class="fa fa-github" aria-hidden="true"></i></a>
-                            <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                            <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                        </div>
-                    </div>
-                </div> -->
-
             </div>
 
-            <%- include('partials/footer') %>
 
 
+    </section>
+    <div class="footer-teams">
+        <%- include('partials/footer') %>
+    </div>
+
+    <footer id="footer">
+        <p>© Copyright 2022 Scholar Chat</p>
+
+    </footer>
 </body>
 
 </html>
