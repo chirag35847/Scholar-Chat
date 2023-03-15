@@ -59,6 +59,11 @@ passport.deserializeUser(function (user, done) {
   done(null, user)
 })
 
+const ENDPOINT =
+  process.env.NODE_ENV === 'production'
+    ? process.env.ENDPOINT
+    : process.env.DEV_ENV
+
 passport.use(
   new OrcidStrategy(
     {
@@ -72,7 +77,7 @@ passport.use(
         process.env.NODE_ENV === 'production'
           ? process.env.CLIENT_SECRET
           : process.env.SANDBOX_CLIENT_SECRET,
-      callbackURL: process.env.ENDPOINT + '/auth/orcid/callback',
+      callbackURL: ENDPOINT + '/auth/orcid/callback',
     },
     function (accessToken, refreshToken, params, profile, done) {
       profile = { orcid: params.orcid, name: params.name }
@@ -89,11 +94,6 @@ app.use(bodyParser.urlencoded({ extended: true })) // only that data will be par
 app.use(session({ secret: 'foo', resave: false, saveUninitialized: false })) // used to save data temporatily using express sessions
 app.use(passport.initialize()) // passport initialization code
 app.use(passport.session()) // saving data
-
-const ENDPOINT =
-  process.env.NODE_ENV === 'production'
-    ? process.env.ENDPOINT
-    : process.env.DEV_ENV
 
 app.get('/app', function (req, res) {
   if (req.isAuthenticated()) {
