@@ -11,7 +11,7 @@ import {
   Button,
 } from '@chakra-ui/react'
 import Login from '../components/Authentication/Login'
-import { Link, Redirect, useHistory } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 
 const HomePage = () => {
   const history = useHistory()
@@ -22,21 +22,21 @@ const HomePage = () => {
     }
   }, [history])
 
-  const ClickHandler = () => {
-    const history = useHistory()
-    function sleep(ms) {
-      return new Promise(resolve => setTimeout(resolve, ms))
-    }
-    async function demo() {
-      await sleep(2 * 1000)
-      console.log('done')
-      window.location.reload()
-    }
-    demo()
-    history.go(0)
+  // const ClickHandler = () => {
+  //   const history = useHistory()
+  //   function sleep(ms) {
+  //     return new Promise(resolve => setTimeout(resolve, ms))
+  //   }
+  //   async function demo() {
+  //     await sleep(2 * 1000)
+  //     console.log('done')
+  //     window.location.reload()
+  //   }
+  //   demo()
+  //   history.go(0)
 
-    window.location.reload()
-  }
+  //   window.location.reload()
+  // }
 
   return (
     <Container maxW='xl' centerContent>
