@@ -11,16 +11,26 @@ import {
   Button,
 } from '@chakra-ui/react'
 import Login from '../components/Authentication/Login'
-import { Link, useHistory } from 'react-router-dom'
+import { Link, useHistory, useLocation } from 'react-router-dom'
 
 const HomePage = () => {
   const history = useHistory()
+  const { search } = useLocation()
   useEffect(() => {
     const userInfo = JSON.parse(localStorage.getItem('userInfo'))
+
+    const redirect = new URLSearchParams(search).get('redirect')
     if (userInfo) {
       history.push('/chats')
     }
-  }, [history])
+
+    // as we are using two frontends, we use redirect as a query flag to check if we need to redirect to the app or not
+    if (redirect !== 'false') {
+      window.location.href = '/app'
+    }
+  }, [history, search])
+
+  // when redirect = false,
 
   // const ClickHandler = () => {
   //   const history = useHistory()
