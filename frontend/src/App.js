@@ -16,7 +16,7 @@ function App() {
           <Route exact path='/' component={HomePage}></Route>
           <Route path='/verify' component={VerifyPage} exact></Route>
           <Route path='/chats' component={ChatPage} exact></Route>
-          <Route path='/app' component={Hello}></Route>
+          <Route path='/home' component={Hello}></Route>
           <Route path='*' component={PageNotFound} />
         </Switch>
       </BrowserRouter>

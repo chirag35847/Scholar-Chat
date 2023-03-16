@@ -95,7 +95,7 @@ app.use(session({ secret: 'foo', resave: false, saveUninitialized: false })) // 
 app.use(passport.initialize()) // passport initialization code
 app.use(passport.session()) // saving data
 
-app.get('/app', function (req, res) {
+app.get('/home', function (req, res) {
   if (req.isAuthenticated()) {
     res.render('index', {
       endpoint: process.env.ENDPOINT,

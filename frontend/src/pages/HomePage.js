@@ -26,7 +26,7 @@ const HomePage = () => {
 
     // as we are using two frontends, we use redirect as a query flag to check if we need to redirect to the app or not
     if (redirect !== 'false') {
-      window.location.href = '/app'
+      window.location.href = '/home'
     }
   }, [history, search])
 
@@ -91,7 +91,7 @@ const HomePage = () => {
                   alignItems: 'center',
                 }}
               >
-                <Link to='/app'>
+                <Link to='/home'>
                   <Button>Register With Orcid</Button>
                 </Link>
               </div>
